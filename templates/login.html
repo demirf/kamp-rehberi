@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+{% load crispy_forms_tags %}
+{% block title %}
+  Giriş Yap
+{% endblock title %}
+
+{% block css %}
+  <style>
+      body{
+          background: url("/static/images/body4.jpg");
+          background-repeat: no-repeat;
+          background-size: cover;
+      }
+      
+      header .baslik_icon{
+          width: 100px;
+      }
+      header li{
+          font-size: 18px;
+      }
+
+      header li a{
+          color: azure;
+      }
+
+      .fas{
+        margin-left:5px;
+        font-size: 18px;
+      }
+
+      .loginForm{
+        color: #ffffff;
+        width: 50%;
+        position: relative;
+        margin: auto;
+        margin-top: 277px;
+      }
+
+  </style>
+{% endblock css %}
+
+{% block body %}
+  <div class="loginForm">
+        <h3>Giriş Yap</h3>               
+        <hr>                  
+    <form method = "POST">
+                            
+        {% csrf_token %}
+                            
+        {{form|crispy}}
+                            
+        <button type="submit" class="btn btn-secondary">Giriş Yap</button>
+                        
+    </form>
+            </div>
+        </div>
+  
+{% endblock body %}

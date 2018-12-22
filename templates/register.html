@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% load crispy_forms_tags %}
+{% block title %}
+  Kayıt Ol
+{% endblock title %}
+
+{% block css %}
+  <style>
+      header{
+          height: 330px; background: url("/static/images/register.jpg"); background-size: cover; background-position-y: -83%;
+      }
+      header .baslik_icon{
+          width: 100px;
+      }
+      header li{
+          font-size: 18px;
+      }
+
+      header li a{
+          color: azure;
+      }
+
+      .fas{
+        margin-left:5px;
+        font-size: 18px;
+      }
+  </style>
+{% endblock css %}
+
+{% block body %}
+  <div class="container mt-4">
+      <h3>Kayıt Ol</h3>
+      <hr>
+      <form method = "POST">
+          {% csrf_token %}
+          {{form|crispy}}
+          <button type="submit" class="btn btn-danger">Kayıt Ol</button>
+      </form>
+  </div>
+{% endblock body %}

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+
+    {% block css %}
+    <style>
+
+    </style>
+    {% endblock css %}
+   
+    <title>
+        {% block title %}
+
+        {% endblock title %}
+    </title>
+</head>
+<body>
+    
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-transparent">
+                <button type ="button" class="navbar-toggler" data-toggle = "collapse" data-target = "#menuac">
+                    <i class="fas fa-bars fa-md"></i>
+                </button>
+                
+            <a href= "{% url 'index' %}" class="navbar-brand"><img class = "baslik_icon" src="{% static 'images/camp.png' %}"></a> 
+            
+            <form class="form-inline">
+                <input type="text" class="form-control form-control-md" name="keyword" placeholder="Kamp Yeri Ara">
+                <button class="btn btn-link btn-lg" type="submit" name="action" value="delete">
+                        <i style = 'margin-left:-70px; color:#808080;' class="fa fa-search"></i>
+                    </button>
+                
+            </form>
+            
+            <div class="collapse navbar-collapse" id="menuac">
+                <ul class="navbar-nav ml-auto">
+                    {% if request.user.is_authenticated %}
+
+                    <li class="nav-item test mr-4">
+                            <a href=" {% url 'Blog:dashboard' %}"  class="nav-link"><i class="fas fa-hiking" style="margin-right:8px"></i>Kontrol Paneli</a>
+                        </li>
+
+                    <li class="nav-item mr-4">
+                            <a href= "{% url 'User:logout' %}" class="nav-link"><i class="fas fa-sign-out-alt" style="margin-right:8px;"></i>Çıkış Yap</a>
+                        </li>
+
+                    {% else %}
+                      
+
+                    <li class="nav-item mr-4">
+                            <a href= "{% url 'User:login' %}" class="nav-link">Giriş Yap<i class="fas fa-sign-in-alt"></i></a> 
+                        </li>
+                        <li class="nav-item mr-4">
+                            <a href= "{% url 'User:register' %}" class="nav-link">Kayıt<i class="fas fa-user"></i></a> 
+                        </li>
+
+                    {% endif %}
+
+                    <li class="nav-item mr-4">
+                        <a href="/about" class="nav-link"><u>Nedir Bu Kamp Rehberi?</u></a>
+                    </li>
+
+
+                </ul>
+            </div>
+            </nav>
+        </header>    
+
+        <div class="container">
+            {% if messages %}
+
+    {% for message in messages %}
+    <div {% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>{{ message }}</div>
+    {% endfor %}
+{% endif %}
+        </div>
+
+    {% block body %}
+      
+    {% endblock body %}
+
+
+
+
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery-3.2.1.slim.min.js' %}"></script>
+
+
+</body>
+</html>

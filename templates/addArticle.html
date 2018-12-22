@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% load crispy_forms_tags %}
+{% block title %}
+  Yazı Ekle
+{% endblock title %}
+
+{% block css %}
+  <style>
+      header nav{
+        background-color: gray;
+      }
+      header .baslik_icon{
+          width: 100px;
+      }
+      header li{
+          font-size: 18px;
+      }
+
+      header li a{
+          color: azure;
+      }
+
+      .fas{
+        margin-left:5px;
+        font-size: 19px;
+      }
+  </style>
+{% endblock css %}
+
+
+{% block body %}
+<div class="container mt-4">
+    <h3>Gezip Gördüklerini Yazma Zamanı!</h3>
+    <hr>
+    <form method = "POST" enctype="multipart/form-data">
+                            
+        {% csrf_token %}
+        {{form.media}}
+        {{form|crispy}}
+                            
+        <button type="submit" class="btn btn-secondary">Tıkla ve Paylaş</button>
+                        
+    </form>
+</div>
+{% endblock body %}

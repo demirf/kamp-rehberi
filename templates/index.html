@@ -1,0 +1,90 @@
+{% extends "layout.html" %}
+
+{% block title %}
+  Anasayfa
+{% endblock title %}
+
+{% block css %}
+  <style>
+
+      header{
+          height: 330px; background: url("/static/images/camp2.jpg"); background-size: cover; background-position-y: -80%;  
+      }
+      header .baslik_icon{
+          width: 100px;
+      }
+      header li{
+          font-size: 18px;
+      }
+
+      header li a{
+          color: azure;
+      }
+
+      .fas{
+        margin-left:5px;
+        font-size: 18px;
+      }
+
+      .row{
+          width: 100%;
+      }
+  </style>
+{% endblock css %}
+
+{% block body %}
+
+
+
+    {% if articles %}
+
+    {% for article in articles %}
+
+    <div class="row">
+        <div class="col-md-8 offset-md-3">
+            <!-- Post Content Column -->
+            <div class="col-md-8">
+    
+              <!-- Title -->
+              <a href="{% url 'Blog:detail' article.id %}"> <h4 class="mt-4">{{article.title}}</h4></a> <!-- Dinamik URL -->
+              <!--- <a href="/Blog/article/{{article.id}}"> <h4 class="mt-4">{{article.title}}</h4></a> -->
+              <!-- Author -->
+              <p class="lead">
+                <small>{{article.author}} tarafından yayınlandı.</small>
+              </p>
+    
+              <hr>
+    
+              <!-- Date/Time -->
+              <p>{{article.created_date}}</p>
+    
+              <hr>
+    
+              <!-- Preview Image -->
+              {% if article.article_image %}
+              <img class="img-fluid rounded" src="{{article.article_image.url}}" alt="">          
+              {% endif %}
+     
+              
+    
+              <hr>
+    
+              <!-- Post Content -->
+              <p class="lead">
+                {{article.content|safe|truncatewords:40}}
+              </p>
+              <a href="/Blog/article/{{article.id}}" class="btn btn-warning">Devamını Oku</a>
+              <hr>
+    
+                  </div>
+                  </div>
+                </div>
+      
+      
+    {% endfor %}
+
+    {% else %}
+    {% endif %}
+
+  
+{% endblock body %}

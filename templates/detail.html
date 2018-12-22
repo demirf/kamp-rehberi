@@ -1,0 +1,109 @@
+{% extends "layout.html" %}
+
+{% block title %}
+  Detay Sayfası
+{% endblock title %}
+
+{% block css %}
+  <style>
+      header nav{
+        background-color: gray;
+      }
+      header .baslik_icon{
+          width: 100px;
+      }
+      header li{
+          font-size: 18px;
+      }
+
+      header li a{
+          color: azure;
+      }
+
+      .fas{
+        margin-left:5px;
+        font-size: 19px;
+      }
+  </style>
+{% endblock css %}
+
+{% block body %}
+
+<!-- Page Content -->
+<div class="container">
+
+        <div class="row">
+  
+          <!-- Post Content Column -->
+          <div class="col-lg-6">
+  
+            <!-- Title -->
+            <h3 class="mt-4">{{article.title}}</h3>
+  
+            <!-- Author -->
+            <p class="lead">
+              {{article.author}} tarafından oluşturulmuştur.
+            </p>
+  
+            <hr>
+  
+            <!-- Date/Time -->
+            <p>{{article.created_date}}</p>
+  
+            <hr>
+  
+            <!-- Preview Image -->
+            {% if article.article_image %}
+            <img class="img-fluid rounded" src="{{article.article_image.url}}" alt="">          
+            {% endif %}
+   
+            
+  
+            <hr>
+  
+            <!-- Post Content -->
+            <p class="lead">
+              {{article.content|safe}}
+            </p>
+            <h4 class="mt-4">Yorumlar</h4>
+            <hr>
+                {% if comments %}
+
+                  {% for comment in comments %}
+                  <div class="media mb-4">
+                      <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+                      <div class="media-body">
+                        <h5 class="mt-0">{{comment.comment_author}}</h5>
+                       {{comment.comment_content}}
+                      </div> 
+                    </div>
+                  {% endfor %}
+
+                {% else %}
+                  <div class="alert alert-warning">
+                    Şuan bir yorum bulunmuyor.
+                  </div>
+                {% endif %}
+            <hr>
+          <div class="card my-4">
+              <h5 class="card-header">Yorum Bırak</h5>
+              <div class="card-body">
+                <form method="POST" action="{% url 'Blog:comment' article.id%}">
+                  {% csrf_token %} <!-- Oluşturulan her formun altına eklenmesi gerekiyor -->
+                  <div class="form-group">
+                      <div class="form-group">
+                          <label for="formGroupExampleInput">İsim</label>
+                          <input name = "comment_author" type="text" class="form-control" id="formGroupExampleInput" placeholder="İsminizi Giriniz">
+                        </div>
+                        <label for="formGroupExampleInput">Yorum</label>
+                    <textarea name = "comment_content" class="form-control" rows="3"></textarea>
+                  </div>
+                  <button type="submit" class="btn btn-secondary">Gönder!</button>
+                </form>
+              </div>
+          </div>    
+            </div>
+                </div>
+           
+
+{% endblock body %}
